@@ -52,7 +52,7 @@ bool LogoScene::init()
 	loading->runAction(repeat1);
 
 	auto gotoNext = CallFunc::create([]() {
-		Director::getInstance()->replaceScene(HelloWorld::createScene());
+		Director::getInstance()->replaceScene(TransitionCrossFade::create(1, HelloWorld::create()));
 	});
 
 	runAction(Sequence::create(DelayTime::create(10), gotoNext, nullptr));
