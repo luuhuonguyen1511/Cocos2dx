@@ -19,8 +19,9 @@ bool LogoScene::init()
 	}
 
 	auto screenSize = Director::getInstance()->getVisibleSize();
+	//day la baby tom
 	auto logo = Sprite::create("babytom.png");
-	logo->setScale(0.5);
+	logo->setScale(0.4);
 	logo->setPosition(screenSize.width / 2, screenSize.height / 2);
 	addChild(logo);
 
@@ -33,16 +34,28 @@ bool LogoScene::init()
 
 	logo->runAction(repeat);
 
-
+	//day la background
 	auto background = Sprite::create("background.png");
 	logo->setPosition(screenSize.width / 2, screenSize.height / 2);
-	addChild(background, -1);
+	addChild(background, -2);
+
+	//day la chu loading
+	auto loading = Sprite::create("loading.png");
+	loading->setScale(0.3);
+	loading->setPosition(screenSize.width / 2, 30);
+	addChild(loading, -1);
+
+	auto fadeIn = FadeIn::create(1.0f);
+	auto fadeOut = FadeOut::create(1.0f);
+	auto sequence1 = Sequence::create(fadeIn, fadeOut, nullptr);
+	auto repeat1 = RepeatForever::create(sequence1);
+	loading->runAction(repeat1);
 
 	auto gotoNext = CallFunc::create([]() {
 		Director::getInstance()->replaceScene(HelloWorld::createScene());
 	});
 
-	runAction(Sequence::create(DelayTime::create(7), gotoNext, nullptr));
+	runAction(Sequence::create(DelayTime::create(10), gotoNext, nullptr));
 
 	return true;
 }
