@@ -1,6 +1,6 @@
-#include "LogoScene.h"
+﻿#include "LogoScene.h"
 #include "cocos2d.h"
-#include "HelloWorldScene.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 Scene* LogoScene::createScene()
@@ -34,14 +34,14 @@ bool LogoScene::init()
 
 	logo->runAction(repeat);
 
-	//day la background
+	//đây là background
 	auto background = Sprite::create("background.png");
 	logo->setPosition(screenSize.width / 2, screenSize.height / 2);
 	addChild(background, -2);
 
-	//day la chu loading
+	//đây là chữ loading
 	auto loading = Sprite::create("loading.png");
-	loading->setScale(0.3);
+	loading->setScale(0.2);
 	loading->setPosition(screenSize.width / 2, 30);
 	addChild(loading, -1);
 
@@ -51,8 +51,27 @@ bool LogoScene::init()
 	auto repeat1 = RepeatForever::create(sequence1);
 	loading->runAction(repeat1);
 
+	//test label
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	TTFConfig labelConfig;
+	labelConfig.fontFilePath = "fonts/chewy_regular.ttf";
+	labelConfig.fontSize = 30;
+	labelConfig.glyphs = GlyphCollection::DYNAMIC;
+	labelConfig.outlineSize = 2;
+	labelConfig.customGlyphs = nullptr;
+	labelConfig.distanceFieldEnabled = false;
+	
+
+	auto myLabel = Label::createWithTTF(labelConfig, "UNDER THE SEA");
+	myLabel->setPosition(Vec2(origin.x + screenSize.width / 2,
+		origin.y + screenSize.height - myLabel->getContentSize().height));
+	
+	addChild(myLabel, 1);
+
+
+	//chuyển cảnh
 	auto gotoNext = CallFunc::create([]() {
-		Director::getInstance()->replaceScene(TransitionCrossFade::create(1, HelloWorld::create()));
+		Director::getInstance()->replaceScene(TransitionCrossFade::create(1, GameScene::createScene()));
 	});
 
 	runAction(Sequence::create(DelayTime::create(10), gotoNext, nullptr));
