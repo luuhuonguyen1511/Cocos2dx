@@ -41,7 +41,7 @@ bool LogoScene::init()
 
 	//đây là chữ loading
 	auto loading = Sprite::create("loading.png");
-	loading->setScale(0.2);
+	loading->setScale(0.15);
 	loading->setPosition(screenSize.width / 2, 30);
 	addChild(loading, -1);
 
@@ -59,22 +59,22 @@ bool LogoScene::init()
 	labelConfig.glyphs = GlyphCollection::DYNAMIC;
 	labelConfig.outlineSize = 2;
 	labelConfig.customGlyphs = nullptr;
-	labelConfig.distanceFieldEnabled = false;
-	
+	labelConfig.distanceFieldEnabled = false;	
 
 	auto myLabel = Label::createWithTTF(labelConfig, "UNDER THE SEA");
+	//auto myLabel = Label::createWithTTF("under", "fonts/....ttf", 23);
 	myLabel->setPosition(Vec2(origin.x + screenSize.width / 2,
 		origin.y + screenSize.height - myLabel->getContentSize().height));
+	myLabel->enableGlow(Color4B::ORANGE);
 	
 	addChild(myLabel, 1);
-
 
 	//chuyển cảnh
 	auto gotoNext = CallFunc::create([]() {
 		Director::getInstance()->replaceScene(TransitionCrossFade::create(1, GameScene::createScene()));
 	});
 
-	runAction(Sequence::create(DelayTime::create(10), gotoNext, nullptr));
+	runAction(Sequence::create(DelayTime::create(7), gotoNext, nullptr));
 
 	return true;
 }
