@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "GameScene.h"
 #include "ui/CocosGUI.h"
+#include "string.h"
 
 USING_NS_CC;
 Scene* PlayScene::createScene()
@@ -43,8 +44,18 @@ bool PlayScene::init()
 	fishMove->runAction(RepeatForever::create(animate));
 	
 	//hieu ung
-	auto fly = ParticleGalaxy::create();
-	addChild(fly, 1);
+	/*auto fly = ParticleGalaxy::create();
+	addChild(fly, 1);*/
+
+	//listen
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
+	listener->onTouchBegan = CC_CALLBACK_2(PlayScene::onTouchBegan, this);
+	listener->onTouchMoved = CC_CALLBACK_2(PlayScene::onTouchMoved, this);
+	listener->onTouchEnded = CC_CALLBACK_2(PlayScene::onTouchEnded, this);
+	//_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener,fishMove);
 
 	//chuyển cảnh
 	/*auto gotoNext = CallFunc::create([]() {
@@ -54,4 +65,29 @@ bool PlayScene::init()
 	runAction(Sequence::create(DelayTime::create(7), gotoNext, nullptr));*/
 
 	return true;
+}
+
+//void PlayScene::onMouseMove(Event* event) {
+//	EventMouse* e = (EventMouse*)event;
+//	String str = "";
+//	str = std::to_string(e->getCursorX()) + " Y:" + std::to_string(e->getCursorY());
+//}
+
+bool PlayScene::onTouchBegan(Touch* touch, Event* event) {
+	auto gotoNext = CallFunc::create([]() {
+		Director::getInstance()->replaceScene(TransitionCrossFade::create(1, GameScene::createScene()));
+	});
+
+	runAction(Sequence::create(DelayTime::create(0), gotoNext, nullptr));
+	//log("touched");
+	return true;
+	
+}
+
+void PlayScene::onTouchMoved(Touch* touch, Event *event) {
+
+}
+
+void PlayScene::onTouchEnded(Touch* touch, Event *event) {
+
 }

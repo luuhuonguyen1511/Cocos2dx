@@ -3,6 +3,7 @@
 #include "HelloWorldScene.h"
 #include "SettingScene.h"
 #include "PlayScene.h"
+#include "LogoScene.h"
 
 USING_NS_CC;
 Scene* GameScene::createScene()
@@ -64,16 +65,16 @@ bool GameScene::init()
 			runAction(Sequence::create(DelayTime::create(0), gotoNext, nullptr));
 		});
 
-	itemPlay->setPosition(0, 0);
-	itemPlayer->setPosition(0, 30);
-	itemSetting->setPosition(0, 60);
-	itemAbout->setPosition(0, 90);
+	itemPlay->setPosition(0, 90);
+	itemPlayer->setPosition(0, 60);
+	itemSetting->setPosition(0, 30);
+	itemAbout->setPosition(0, 0);
 	itemPlay->setFontSizeObj(20);
 	itemSetting->setFontSizeObj(20);
 	itemAbout->setFontSizeObj(20);
 	itemPlayer->setFontSizeObj(20);
 
-	auto menuLabel = Menu::create(itemAbout, itemSetting, itemPlayer, itemPlay, nullptr);
+	auto menuLabel = Menu::create(itemPlay, itemPlayer, itemSetting, itemAbout, nullptr);
 	menuLabel->setPosition(screenSize.width / 2, screenSize.height / 2);
 	addChild(menuLabel, 1);
 
