@@ -1,6 +1,7 @@
 ﻿#include "LogoScene.h"
 #include "cocos2d.h"
 #include "GameScene.h"
+#include "ui/CocosGUI.h"
 
 USING_NS_CC;
 Scene* LogoScene::createScene()
@@ -40,7 +41,7 @@ bool LogoScene::init()
 	addChild(background, -2);
 
 	//đây là chữ loading
-	auto loading = Sprite::create("loading.png");
+	auto loading = Sprite::create("loadingText.png");
 	loading->setScale(0.15);
 	loading->setPosition(screenSize.width / 2, 30);
 	addChild(loading, -1);
@@ -68,6 +69,28 @@ bool LogoScene::init()
 	myLabel->enableGlow(Color4B::ORANGE);
 	
 	addChild(myLabel, 1);
+
+	//test progress
+	/*auto loadingBarBG = Sprite::create("loading_bg.png");
+	loadingBarBG->setPosition(Vec2(screenSize.width / 2, 15));
+	addChild(loadingBarBG, 2);
+
+	static auto loadingBar = ui::LoadingBar::create("loading.png");
+	loadingBar->setPercent(0);
+	loadingBar->setDirection(ui::LoadingBar::Direction::LEFT);
+	loadingBar->setPosition(loadingBarBG->getPosition());
+	addChild(loadingBar, 2);
+
+	auto updateLoadingBar = CallFunc::create([]() {
+		if (loadingBar->getPercent() < 100)
+		{
+			loadingBar->setPercent(loadingBar->getPercent() + 1);
+		}
+	});
+
+	auto sequenceRunUpdateLoadingBar = Sequence::createWithTwoActions(updateLoadingBar, DelayTime::create(0.1f));
+	auto repeatLoad = Repeat::create(sequenceRunUpdateLoadingBar, 100);
+	loadingBar->runAction(repeatLoad);*/
 
 	//chuyển cảnh
 	auto gotoNext = CallFunc::create([]() {

@@ -1,6 +1,8 @@
 #include "GameScene.h"
 #include "cocos2d.h"
 #include "HelloWorldScene.h"
+#include "SettingScene.h"
+#include "PlayScene.h"
 
 USING_NS_CC;
 Scene* GameScene::createScene()
@@ -35,8 +37,23 @@ bool GameScene::init()
 	closeItem->setAnchorPoint(Vec2(1, 0));
 	closeItem->setPosition(screenSize.width/2, - screenSize.height / 2);
 
-	auto itemPlay = MenuItemFont::create("Play", nullptr);
-	auto itemSetting = MenuItemFont::create("Setting", nullptr);
+	auto itemPlay = MenuItemFont::create("Play", 
+		[&](Ref* play) {
+		auto gotoNext = CallFunc::create([]() {
+			Director::getInstance()->replaceScene(TransitionProgressHorizontal::create(1, PlayScene::createScene()));
+		});
+
+		runAction(Sequence::create(DelayTime::create(0), gotoNext, nullptr));
+	});
+
+	auto itemSetting = MenuItemFont::create("Setting", 
+		[&](Ref* setting) {
+		auto gotoNext = CallFunc::create([]() {
+			Director::getInstance()->replaceScene(TransitionProgressHorizontal::create(1, SettingScene::createScene()));
+		});
+
+		runAction(Sequence::create(DelayTime::create(0), gotoNext, nullptr));
+	});
 	auto itemAbout = MenuItemFont::create("About", nullptr);
 	auto itemPlayer = MenuItemFont::create("Player", 
 		[&](Ref* player) {
