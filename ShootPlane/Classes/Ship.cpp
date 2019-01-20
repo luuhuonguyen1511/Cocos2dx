@@ -114,16 +114,33 @@ void Ship::Collision(std::vector<Rock*> listRock)
 		if (listRock.at(i)->IsAlive())
 		{
 			//collision with ship
-			if (listRock.at(i)->getRectSprite().intersectsRect(this->getRectSprite()))
+			if (listRock.at(i)->getRectSprite().intersectsCircle(this->mSprite->getPosition(), 13))
 			{
 				listRock.at(i)->Init();
+				
+				auto fadeIn = FadeIn::create(0.1f);
+				auto fadeOut = FadeOut::create(0.1f);
+				auto sequence = Sequence::createWithTwoActions(fadeOut, fadeIn);
+			
+				this->mSprite->runAction(Repeat::create(sequence, 3));
+				
 				continue;
-				/*auto fadeIn = FadeIn::create(0.2);
-				auto fadeOut = FadeOut::create(0.2);
-				auto sequence = Sequence::create(fadeIn, fadeOut, fadeIn->clone());
-				this->mSprite->runAction(Repeat::create(sequence, 2));*/
 
 			}
+
+			for (int j = 0; j < this->listFire.size(); j++)
+			{
+				if (listRock.at(i)->getRectSprite().intersectsRect(listFire.at(j)->getRectSprite()))
+					{
+						listRock.at(i)->Init();
+
+						listFire.at(j)->Init();
+
+						continue;
+
+				}
+			}
+			
 		}
 	}
 }

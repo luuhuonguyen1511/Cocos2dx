@@ -37,7 +37,6 @@ public:
 	virtual void update(float delta);
 
 	void setBackground();
-	
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);

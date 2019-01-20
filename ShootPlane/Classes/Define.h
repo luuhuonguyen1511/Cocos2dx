@@ -4,8 +4,8 @@
 
 #define FPS 40
 #define FrameCount 4
-#define FRAME_FOR_FIRE 7
-#define FRAME_FOR_ROCK 15
+#define FRAME_FOR_FIRE 10
+#define FRAME_FOR_ROCK 5
 
 #define ROCK_FALL_SPEED_MAX 20
 #define ROCK_FALL_SPEED_MIN 7
@@ -18,4 +18,4 @@
 #define FIRE_IMG "fire.png"
 #define BACKGROUND "background.png"
 
-#define ROCK_NUMBER_MAX 20
+#define ROCK_NUMBER_MAX 30

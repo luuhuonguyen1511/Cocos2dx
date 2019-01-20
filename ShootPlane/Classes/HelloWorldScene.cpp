@@ -102,11 +102,11 @@ void HelloWorld::update(float delta)
 		if (listRock.at(i)->IsAlive() == true)
 		{
 			listRock.at(i)->Update();
-			ship->Collision(listRock);
+			
 		}
 	}
 
-	
+	ship->Collision(listRock);
 }
 
 void HelloWorld::setBackground()

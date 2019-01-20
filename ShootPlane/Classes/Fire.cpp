@@ -42,3 +42,7 @@ void Fire::SetPosition(cocos2d::Vec2 pos)
 	mSprite->setPosition(pos);
 }
 
+Rect Fire::getRectSprite()
+{
+	return Rect(mSprite->getBoundingBox());
+}

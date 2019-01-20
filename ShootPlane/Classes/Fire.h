@@ -10,7 +10,7 @@ public:
 	~Fire();
 
 	void Init();
-	
+	Rect getRectSprite();
 	void Update();
 	void SetPosition(cocos2d::Vec2 pos);
 	
