@@ -1,4 +1,5 @@
 #include "Ship.h"
+#include "IntroScene.h"
 #include "Define.h"
 
 Ship::Ship(Scene* scene)
@@ -107,7 +108,7 @@ std::vector<Fire*> Ship::getListFire()
 	return listFire;
 }
 
-void Ship::Collision(std::vector<Rock*> listRock)
+void Ship::Collision(std::vector<Rock*> listRock, Scene* scene)
 {
 	for (int i = 0; i < listRock.size(); i++)
 	{
@@ -115,14 +116,13 @@ void Ship::Collision(std::vector<Rock*> listRock)
 		{
 			//collision with ship
 			if (listRock.at(i)->getRectSprite().intersectsCircle(this->mSprite->getPosition(), 13))
-			{
-				listRock.at(i)->Init();
-				
+			{	
 				auto fadeIn = FadeIn::create(0.1f);
 				auto fadeOut = FadeOut::create(0.1f);
 				auto sequence = Sequence::createWithTwoActions(fadeOut, fadeIn);
-			
+
 				this->mSprite->runAction(Repeat::create(sequence, 3));
+				//Director::getInstance()->replaceScene(TransitionShrinkGrow::create(1, IntroScene::createScene()));
 				
 				continue;
 
@@ -132,8 +132,8 @@ void Ship::Collision(std::vector<Rock*> listRock)
 			{
 				if (listRock.at(i)->getRectSprite().intersectsRect(listFire.at(j)->getRectSprite()))
 					{
-						listRock.at(i)->Init();
-
+						listRock.at(i)->Explosion(scene);
+						
 						listFire.at(j)->Init();
 
 						continue;

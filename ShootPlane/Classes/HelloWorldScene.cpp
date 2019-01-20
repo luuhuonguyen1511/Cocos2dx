@@ -26,7 +26,6 @@
 #include "SimpleAudioEngine.h"
 #include "Define.h"
 #include "Rock.h"
-
 #include "Ship.h"
 
 USING_NS_CC;
@@ -106,7 +105,7 @@ void HelloWorld::update(float delta)
 		}
 	}
 
-	ship->Collision(listRock);
+	ship->Collision(listRock, this);	
 }
 
 void HelloWorld::setBackground()

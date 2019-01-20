@@ -10,13 +10,13 @@ public:
 	~Rock();
 
 	void Init();
-
+	void Explosion(Scene* scene);
 	void Update();
-
+	void Delete();
 	Rect getRectSprite();
 
 private:
-	
+	Sprite* explo;
 	int frameCount = 0;
 };
 

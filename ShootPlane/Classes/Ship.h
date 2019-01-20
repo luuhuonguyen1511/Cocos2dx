@@ -15,7 +15,7 @@ public:
 	void Init();
 	
 	void Update();
-	void Collision(std::vector<Rock*> listRock);
+	void Collision(std::vector<Rock*> listRock, Scene* scene);
 	Rect getRectSprite();
 
 	Vector<SpriteFrame*> Ship::getFrames(std::string name, int count);
