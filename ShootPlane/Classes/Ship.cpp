@@ -1,48 +1,76 @@
 #include "Ship.h"
+#include "Define.h"
 
-
-
-Ship::Ship()
+Ship::Ship(Scene* scene)
 {
-}
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("sprites.plist", "sprites.png");
 
-Ship::Ship(Layer * layer)
-{
-	setSprite(layer);
+	auto listFrames = getFrames("00", 5);
+	mSprite = Sprite::createWithSpriteFrame(listFrames.front());
+	
+	scene->addChild(mSprite, 1);
+
+	auto animation = Animation::createWithSpriteFrames(listFrames, 0.25f);
+	mSprite->runAction(RepeatForever::create(Animate::create(animation)));
+
+	for (int i = 0; i < FIRE_NUMBER_MAX; i++)
+	{
+		Fire *fire = new Fire(scene);
+		listFire.push_back(fire);
+	}
+
+	Init();
+
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
+	listener->onTouchBegan = CC_CALLBACK_2(Ship::onTouchBegan, this);
+	listener->onTouchMoved = CC_CALLBACK_2(Ship::onTouchMoved, this);
+
+	scene->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, mSprite);
+
 }
 
 Ship::~Ship()
 {
 }
 
-void Ship::setPosition()
-{
-	/*auto screenSize = Director::getInstance()->getVisibleSize();
-	
-	pos.x = screenSize.width / 2;
-	pos.y = screenSize.height / 2;*/
-}
+void Ship::Init()
+{	
 
-Position Ship::getPosition()
-{
-	return Position();
-}
-
-void Ship::setSprite(Layer * layer)
-{
-	auto screenSize = Director::getInstance()->getVisibleSize();
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("sprites.plist", "sprites.png");
-
-	auto listFrames = getFrames("tile00", 5);
-	mSprite = Sprite::createWithSpriteFrame(listFrames.front());
-	
+	this->SetAlive(true);
 	mSprite->setAnchorPoint(Vec2(0.5, 0));
-	mSprite->setPosition(screenSize.width / 2, screenSize.height/5);
-	layer->addChild(mSprite);
+	mSprite->setPosition(SCREEN_W / 2, SCREEN_H / 6);
+	mSprite->setScale(0.7);
+	
+}
 
-	auto animation = Animation::createWithSpriteFrames(listFrames, 0.25f);
-	auto animate = Animate::create(animation);
-	mSprite->runAction(RepeatForever::create(animate));
+void Ship::Update()
+{
+	if (mIsAlive)
+	{
+		frameCount++;
+		if (frameCount % FRAME_FOR_FIRE == 0) {
+			for (int i = 0; i < listFire.size(); i++) 
+			{
+				if (listFire.at(i)->IsAlive() == false)
+					{
+						listFire.at(i)->SetAlive(true);
+						listFire.at(i)->SetPosition(Vec2(mSprite->getPosition().x,
+							mSprite->getPosition().y + mSprite->getContentSize().height / 2));
+
+						break;
+					}
+			}
+		}
+		
+		for (int i = 0; i < listFire.size(); i++)
+		{
+			if (listFire.at(i)->IsAlive() == true)
+			{
+				listFire.at(i)->Update();
+			}
+		}
+	}
 }
 
 Vector<SpriteFrame*> Ship::getFrames(std::string name, int count)
@@ -60,7 +88,47 @@ Vector<SpriteFrame*> Ship::getFrames(std::string name, int count)
 	return aniFrames;
 }
 
-bool Ship::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event *event)
+bool Ship::onTouchBegan(cocos2d::Touch * touch, cocos2d::Event * event)
 {
-	return true;
+	if (mSprite->getBoundingBox().containsPoint(touch->getLocation()))
+	{
+		return true;
+	}
+	return false;
+}
+
+void Ship::onTouchMoved(cocos2d::Touch * touch, cocos2d::Event * event)
+{
+	mSprite->setPosition(mSprite->getPosition() + touch->getDelta());
+}
+
+std::vector<Fire*> Ship::getListFire()
+{
+	return listFire;
+}
+
+void Ship::Collision(std::vector<Rock*> listRock)
+{
+	for (int i = 0; i < listRock.size(); i++)
+	{
+		if (listRock.at(i)->IsAlive())
+		{
+			//collision with ship
+			if (listRock.at(i)->getRectSprite().intersectsRect(this->getRectSprite()))
+			{
+				listRock.at(i)->Init();
+				continue;
+				/*auto fadeIn = FadeIn::create(0.2);
+				auto fadeOut = FadeOut::create(0.2);
+				auto sequence = Sequence::create(fadeIn, fadeOut, fadeIn->clone());
+				this->mSprite->runAction(Repeat::create(sequence, 2));*/
+
+			}
+		}
+	}
+}
+
+Rect Ship::getRectSprite()
+{
+	return Rect(mSprite->getBoundingBox());
 }

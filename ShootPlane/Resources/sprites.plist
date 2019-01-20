@@ -4,10 +4,10 @@
 	<dict>
 		<key>frames</key>
 		<dict>
-			<key>tile000.png</key>
+			<key>000.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{85,0},{84,108}}</string>
+				<string>{{0,109},{84,108}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -18,10 +18,10 @@
 				<string>{97,120}</string>
 			</dict>
 
-			<key>tile001.png</key>
+			<key>001.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{85,109},{84,108}}</string>
+				<string>{{0,0},{84,108}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -32,10 +32,10 @@
 				<string>{97,120}</string>
 			</dict>
 
-			<key>tile002.png</key>
+			<key>002.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{170,0},{84,108}}</string>
+				<string>{{85,0},{84,108}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -46,10 +46,10 @@
 				<string>{97,120}</string>
 			</dict>
 
-			<key>tile003.png</key>
+			<key>003.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,109},{84,108}}</string>
+				<string>{{85,109},{84,108}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
@@ -60,10 +60,10 @@
 				<string>{97,120}</string>
 			</dict>
 
-			<key>tile004.png</key>
+			<key>004.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,0},{84,108}}</string>
+				<string>{{170,0},{84,108}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>

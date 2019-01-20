@@ -1,47 +1,44 @@
 #include "Fire.h"
+#include "Define.h"
 
-Fire::Fire()
+Fire::Fire(Scene* scene)
 {
-}
-
-Fire::Fire(Layer * layer)
-{
-	setSprite(layer);
+	mSprite = Sprite::create(FIRE_IMG);
+	scene->addChild(mSprite);
+	mSprite->setScale(1.3);
+	Init();
+	
 }
 
 Fire::~Fire()
 {
 }
 
-void Fire::setSprite(Layer * layer)
-{
-	auto screenSize = Director::getInstance()->getVisibleSize();
+void Fire::Init()
+{	
+	this->SetAlive(false);
+}
 
-	mSprite = Sprite::create("fire.png");
-	mSprite->setPosition(this->getPosition().x, this->getPosition().y);
-	layer->addChild(mSprite, 1);
-	
-	if (!mSprite->isVisible()) {
-		this->FireFly(this->getPosition());
+void Fire::Update()
+{
+	if (mIsAlive)
+	{
+		frameCount++;
+		if (frameCount % FrameCount == 0)
+		{
+			mSprite->setPosition(mSprite->getPosition().x, 
+				mSprite->getPosition().y + FIRE_SPEED);
+		}
+		if ((mSprite->getPosition().y - mSprite->getContentSize().height/2) > SCREEN_H)
+		{
+			SetAlive(false);
+		}
+		
 	}
-	//else this->~Fire;
-
-	
 }
 
-void Fire::setPosition(float x, float y)
+void Fire::SetPosition(cocos2d::Vec2 pos)
 {
-	this->pos.x = x;
-	this->pos.y = y;
-}
-
-Position Fire::getPosition()
-{
-	return Position();
-}
-
-void Fire::FireFly(Position pos)
-{
-	mSprite->setPosition(pos.x, pos.y + 5);
+	mSprite->setPosition(pos);
 }
 

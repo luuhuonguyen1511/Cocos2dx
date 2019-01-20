@@ -1,23 +1,20 @@
 #pragma once
 #include "cocos2d.h"
-#include "Thing.h"
+#include "Model.h"
 
 USING_NS_CC;
-
-class Fire : public Thing
+class Fire : public Model
 {
-private:
-
 public:
-	Fire();
-	Fire(Layer * layer);
-	virtual ~Fire();
+	Fire(Scene* scene);
+	~Fire();
 
-	void setSprite(Layer * layer) override;
-	void setPosition(float x, float y);
-
-	Position getPosition();
-
-	void FireFly(Position pos);
+	void Init();
+	
+	void Update();
+	void SetPosition(cocos2d::Vec2 pos);
+	
+private:
+	int frameCount = 0;
 };
 

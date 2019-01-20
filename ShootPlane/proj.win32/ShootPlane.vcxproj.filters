@@ -10,6 +10,15 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\common">
+      <UniqueIdentifier>{2623c98e-aa77-457a-be7b-463d262d2834}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\models">
+      <UniqueIdentifier>{22b9b7a5-5288-4765-8390-9a871d340de2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scenes">
+      <UniqueIdentifier>{17e13760-db0a-4c69-b631-8078aa572f1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -19,19 +28,19 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
-      <Filter>src</Filter>
+      <Filter>src\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\PlayScene.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\Model.cpp">
+      <Filter>src\models</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Ship.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Thing.cpp">
-      <Filter>src</Filter>
+      <Filter>src\models</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Fire.cpp">
-      <Filter>src</Filter>
+      <Filter>src\models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Rock.cpp">
+      <Filter>src\models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -41,20 +50,23 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\Define.h">
+      <Filter>src\common</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\PlayScene.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Model.h">
+      <Filter>src\models</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Ship.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Thing.h">
-      <Filter>src</Filter>
+      <Filter>src\models</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Fire.h">
-      <Filter>src</Filter>
+      <Filter>src\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Rock.h">
+      <Filter>src\models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

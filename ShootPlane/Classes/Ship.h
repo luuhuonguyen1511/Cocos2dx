@@ -1,25 +1,31 @@
-﻿#pragma once
+#pragma once
 #include "cocos2d.h"
-#include "Thing.h"
+#include "Model.h"
+#include <vector>
+#include "Fire.h"
+#include "Rock.h"
 
 USING_NS_CC;
-
-class Ship : public Thing
+class Ship : public Model
 {
-private:
-
 public:
-	Ship();
-	Ship(Layer * layer);
-	virtual ~Ship();
+	Ship(Scene* scene);
+	~Ship();
 
-	void setPosition();
+	void Init();
+	
+	void Update();
+	void Collision(std::vector<Rock*> listRock);
+	Rect getRectSprite();
 
-	Position getPosition();
+	Vector<SpriteFrame*> Ship::getFrames(std::string name, int count);
+	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event);
+	void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event);
 
-	void setSprite(Layer * layer) override;
-	Vector<SpriteFrame*> getFrames(std::string name, int count);
+	std::vector<Fire*> getListFire();
 
-	virtual bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event *event);
+private:
+	std::vector<Fire*> listFire;
+	int frameCount = 0;
 };
 
